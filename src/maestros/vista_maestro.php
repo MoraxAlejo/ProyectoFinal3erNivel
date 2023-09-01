@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/../../conexion/db.php';
+require_once "../conexiondb.php";
 $email = $_SESSION['email'];
 $consulta = $mysqli->query("SELECT *FROM maestros WHERE email = '$email'");
 $resultado = $consulta->fetch_assoc();
@@ -16,19 +16,20 @@ $resultado = $consulta->fetch_assoc();
     <link href="/dist/output.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/modal.js" defer></script>
+    <script src="/js/menu.js" defer></script>
     <title>Maestro</title>
 </head>
 
 <body>
     <main class="flex">
-        <section class="h-[100vh] bg-[#34393f] w-[20%] fixed">
-            <img src="/img/logo2.jpg" alt="logo" class="w-[100%] ">
+        <section id="menu1" class="h-[100vh] bg-[#34393f] w-[20%] fixed hidden">
+            <img src="/imgs/logo2.jpg" alt="logo" class="w-[100%] ">
             <hr class=" border-[#51575e]">
             <div class="p-[20px] flex flex-col gap-2">
                 <h2 class="text-[#9c9fa1] font-medium">Maestro</h2>
                 <div class="text-[#9c9fa1] font-medium flex">
                     <div class="flex gap-1">
-                        <p><?php echo $resultado['name'] ?></p>
+                        <p><?php echo $resultado['nombre'] ?></p>
                         <p><?php echo $resultado['apellido'] ?></p>
                     </div>
                 </div>
@@ -42,27 +43,27 @@ $resultado = $consulta->fetch_assoc();
                 </a>
             </div>
         </section>
-        <section class="w-[80%] h-[100vh] bg-[#f5f6fa] ml-[272px]">
-            <nav class="bg-white w-[80%] h-[10%] flex justify-between items-center gap-3 px-3 shadow-sm shadow-gray-400 fixed">
+        <section id="menu2" class="w-[100%] h-[100vh] bg-[#f5f6fa] ">
+            <nav id="nav" class=" bg-white w-[100%] h-[9%] flex justify-between items-center gap-3 px-3 shadow-sm shadow-gray-400 fixed">
                 <div class="flex gap-3">
-                    <span class="material-symbols-outlined text-[#b6beb3] text-lg">menu</span>
+                    <span id="menu-icon" class="material-symbols-outlined text-[#b6beb3] text-lg cursor-pointer hover:text-gray-600">menu</span>
                     <h1 class="text-[#b6beb3] font-medium">Home</h1>
                 </div>
                 <div class="flex gap-2">
                     <div class="flex gap-1">
-                        <p><?php echo $resultado['name'] ?></p>
+                        <p><?php echo $resultado['nombre'] ?></p>
                         <p><?php echo $resultado['apellido'] ?></p>
                     </div>
                     <span id="flecha" class="material-symbols-outlined cursor-pointer">chevron_right</span>
                     <div id="modal" class=" absolute top-[68px] right-[20px] bg-white shadow-sm shadow-gray-400 rounded-md hidden">
-                        <a href="./edit_profile.php">
+                        <a href="/src/maestros/profilemaestro.php">
                             <div class="flex gap-3 pl-4 py-3 pr-[4rem]">
-                                <img src="/img/profile.svg" alt="profile edit">
+                                <img src="/imgs/logo3.jpg" >
                                 <p>Perfil</p>
                             </div>
                         </a>
                         <hr>
-                        <form action="/src/accions/logout.php">
+                        <form action="/actions/cerrar_sesion.php">
                             <div class="flex gap-3 px-4 py-3 text-red-500">
                                 <span class="material-symbols-outlined cursor-none">door_open</span>
                                 <button type="submit">
@@ -72,7 +73,6 @@ $resultado = $consulta->fetch_assoc();
                         </form>
                     </div>
                 </div>
-
             </nav>
             <div class="p-5 h-[80%] flex flex-col gap-6 mt-[70px] ">
                 <div class="flex justify-between">
