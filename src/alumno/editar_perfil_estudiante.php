@@ -85,7 +85,7 @@ if (
    
     if ($stmt_estudiantes->execute()) {
        
-        header("Location: estudiante_profile.php");
+        header("Location: vista_estudiante.php");
     } else {
         echo "Error en la actualización: " . $stmt_estudiantes->error . " - " . $stmt_usuarios->error;
     }
