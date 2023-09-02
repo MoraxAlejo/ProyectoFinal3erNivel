@@ -81,8 +81,9 @@ $consultaEstudiantes = $mysqli->query("SELECT * FROM maestros");
                     </div>
                 </div>
                 <div class="bg-white shadow-sm shadow-gray-400 w-[100%] rounded-sm  flex flex-col justify-center gap-1">
-                    <div class="flex items-center p-3 pl-6">
+                <div class="flex items-center justify-between p-3 pl-6">
                         <h2>Informacion de alumnos</h2>
+                       <a href="create_maestro_vista.php"> <button type="submit" class="w-[170px] bg-blue-500 text-white px-4 py-[6px] rounded-md right-5  hover:bg-blue-600 hover:shadow-custom hover:shadow-zinc-800">Agregar alumno</button> </a>
                     </div>
                     <hr>
                     <div class="flex flex-col gap-4 p-3 pl-6">

@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id_estudiante'])) {
     <title>Editar Producto</title>
 </head>
 <body>
-    <h2>Editar Producto</h2>
+    <h2>Editar Estudiante</h2>
     <form method="post" action="editar_action.php">
         Matricula: <input type="text" name="matricula" value="<?php echo $resultado['matricula']; ?>"><br>
         Correo: <input type="text" name="email" value="<?php echo $resultado['email']; ?>"><br>
