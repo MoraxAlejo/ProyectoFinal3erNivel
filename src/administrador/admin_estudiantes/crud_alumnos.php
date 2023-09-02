@@ -1,10 +1,10 @@
 <?php 
 session_start();
-require_once "../conexiondb.php";
-$email = $_SESSION['email'];
-$consulta = $mysqli->query("SELECT *FROM administrador WHERE email = '$email'");
-$resultado = $consulta->fetch_assoc();
+require_once __DIR__ . '/../../conexiondb.php';
+$consultaEstudiantes = $mysqli->query("SELECT * FROM estudiantes");
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,25 +27,25 @@ $resultado = $consulta->fetch_assoc();
             <div class="p-[20px] flex flex-col gap-2">
                 <h2 class="text-[#9c9fa1] font-medium">Admin</h2>
                 <div class="text-[#9c9fa1] font-medium flex">
-                    <p><?php echo $_SESSION['name'] ?></p>
+                    <p>Administrador</p>
                 </div>
             </div>
             <hr class="w-[230px] ml-[14px] border-[#4d5359]">
             <div class="p-[20px] pt-6 flex flex-col gap-4">
                 <h1 class="text-[#9c9fa1] w-[100%] flex justify-center font-semibold">MENU ADMINISTRACION</h1>
-                <a href="#" class="flex gap-3">
+                <a href="./permisos.php" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">manage_accounts</span>
                     <h2 class="text-[#9c9fa1] font-medium">Permisos</h2>
                 </a>
-                <a href="#" class="flex gap-3">
+                <a href="./crud_maestros.php" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">person_pin</span>
                     <h2 class="text-[#9c9fa1] font-medium">Maestros</h2>
                 </a>
-                <a href="./admin_estudiantes/crud_alumnos.php" class="flex gap-3">
+                <a href="#" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">school</span>
                     <h2 class="text-[#9c9fa1] font-medium">Alumnos</h2>
                 </a>
-                <a href="" class="flex gap-3">
+                <a href="./crud_clases.php" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">tv_gen</span>
                     <h2 class="text-[#9c9fa1] font-medium">Clases</h2>
                 </a>
@@ -73,15 +73,47 @@ $resultado = $consulta->fetch_assoc();
             </nav>
             <div class="p-5 h-[80%] flex flex-col gap-6 mt-[70px] ">
                 <div class="flex justify-between">
-                    <h1 class=" text-2xl font-medium text-gray-700">Dashboard</h1>
+                    <h1 class=" text-2xl font-medium text-gray-700">Lista de Alumnos</h1>
                     <div class="flex gap-1">
-                        <p class="text-blue-500">Home</p> / <p>Dashboard</p>
+                        <a href="./vAdmin.php">
+                            <p class="text-blue-500">Home</p>
+                        </a>/ <p>Alumno</p>
                     </div>
                 </div>
-                <div class="bg-white shadow-sm shadow-gray-400 w-[600px] h-[75px] rounded-sm p-3 pl-6 flex flex-col justify-center gap-1">
-                    <p class="text-gray-600 text-sm">Bienvenido</p>
-                    <p class="text-gray-600 text-sm">Seleciona la accion que quieras realizar en la pestaña del menu de la izquierda</p>
+                <div class="bg-white shadow-sm shadow-gray-400 w-[100%] rounded-sm  flex flex-col justify-center gap-1">
+                    <div class="flex items-center p-3 pl-6">
+                        <h2>Informacion de alumnos</h2>
+                    </div>
+                    <hr>
+                    <div class="flex flex-col gap-4 p-3 pl-6">
+                        <table border="1" >
+                            <tr>
+                                <th>#</th>
+                                <th>Matricula</th>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Direccion</th>
+                                <th>Fecha de Nacimiento</th>
+                                <th>Acciones</th>
+                            </tr>
+                            <?php
+                            while ($row = $consultaEstudiantes->fetch_assoc()) {
+                               
+                                echo "<tr>";
+                                echo "<td>" . $row['id_estudiante'] . "</td>";
+                                echo "<td>" . $row['matricula'] . "</td>";
+                                echo "<td>" . $row['nombre'] . $row['apellido'] . "</td>";
+                                echo "<td>" . $row['email'] . "</td>";
+                                echo "<td>" . $row['direccion'] . "</td>";
+                                echo "<td>" . $row['fecha_nacimiento'] . "</td>";
+                                echo "<td><a href='editar_estudiante.php?id_estudiante=" . $row['id_estudiante'] . "'>Editar</a> | <a href='eliminar.php?id_estudiante=" . $row['id_estudiante'] . "'>Eliminar</a></td>";
+                                echo "</tr>";
+                            }
+                            ?>
+                        </table>
+                    </div>
                 </div>
+                
             </div>
         </section>
     </main>
