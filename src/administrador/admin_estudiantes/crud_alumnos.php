@@ -106,7 +106,7 @@ $consultaEstudiantes = $mysqli->query("SELECT * FROM estudiantes");
                                 echo "<td>" . $row['email'] . "</td>";
                                 echo "<td>" . $row['direccion'] . "</td>";
                                 echo "<td>" . $row['fecha_nacimiento'] . "</td>";
-                                echo "<td><a href='editar_estudiante.php?id_estudiante=" . $row['id_estudiante'] . "'>Editar</a> | <a href='eliminar.php?id_estudiante=" . $row['id_estudiante'] . "'>Eliminar</a></td>";
+                                echo "<td><a href='editar_estudiante.php?id_estudiante=" . $row['id_estudiante'] . "'>Editar</a> | <a href='eliminar_estudiante.php?id_estudiante=" . $row['id_estudiante'] . "'>Eliminar</a></td>";
                                 echo "</tr>";
                             }
                             ?>
