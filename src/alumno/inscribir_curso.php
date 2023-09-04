@@ -12,8 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     if ($stmt->execute()) {
         header("Location: vista_estudiante.php");
     } else {
-        // Ocurrió un error durante la inserción
-        // Maneja el error apropiadamente
+        echo "el estudiante no se registro";
     }
     $stmt->close();
 }

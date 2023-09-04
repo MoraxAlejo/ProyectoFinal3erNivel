@@ -45,7 +45,7 @@ $resultado = $consulta->fetch_assoc();
                     <span class="material-symbols-outlined text-[#9c9fa1]">school</span>
                     <h2 class="text-[#9c9fa1] font-medium">Alumnos</h2>
                 </a>
-                <a href="" class="flex gap-3">
+                <a href="../administrador/clases/clases_vista.php" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">tv_gen</span>
                     <h2 class="text-[#9c9fa1] font-medium">Clases</h2>
                 </a>

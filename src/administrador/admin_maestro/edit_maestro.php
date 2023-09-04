@@ -23,15 +23,17 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id_maestro'])) {
         Apellidos: <input type="text" name="apellido" value="<?php echo $resultado['apellido']; ?>"><br>
         Direccion: <input type="text" name="direccion" value="<?php echo $resultado['direccion']; ?>"><br>
         Fecha de Nacimiento: <input type="date" name="fecha_nacimiento" value="<?php echo $resultado['fecha_nacimiento']; ?>"><br>
-        <label for="">Clase asignada:</label>
-<select name="nombre_curso" id="nombre_curso">
-    <?php
-    $query = $mysqli->query("SELECT * FROM cursos");
-    while ($row = $query->fetch_assoc()) {
-        echo "<option value='" . $row['nombre_curso'] . "'>" . $row['nombre_curso'] . "</option>";
-    }
-    ?>
-</select>
+         <!-- Agregamos un campo de selección para asignar al maestro a una clase -->
+         <label for="nombre_curso">Clase asignada:</label>
+        <select name="nombre_curso" id="nombre_curso">
+            <?php
+            $query_cursos = $mysqli->query("SELECT * FROM cursos");
+            while ($row_cursos = $query_cursos->fetch_assoc()) {
+                $selected = ($row_cursos['nombre_curso'] == $resultado['nombre_curso']) ? "selected" : "";
+                echo "<option value='" .  $row_cursos['nombre_curso'] . "' $selected>" . $row_cursos['id'] ?> - <?php echo  $row_cursos['nombre_curso'] . "</option>";
+            }
+            ?>
+        </select>
 
         <input type="submit" value="Actualizar">
     </form>
