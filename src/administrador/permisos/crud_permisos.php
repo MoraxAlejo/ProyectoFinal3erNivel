@@ -148,7 +148,7 @@ $result = $mysqli->query($query);
                                                         echo "<tr>";
                                                         echo "<td class='px-2 py-2 border-[1px] border-gray-200'>" . $row['id'] . "</td>";
                                                         echo "<td class='px-2 py-2 border-[1px] border-gray-200'>" . $row['email'] . "</td>";
-                                                        echo "<td class='px-2 py-2 border-[1px] border-gray-200'> <p class=' text-center bg-[#1c9eac] px-2 py-1 rounded-md text-white w-[130px]'>" . $row['rol'] . "</p>  </td>";
+                                                        echo "<td class='px-2 py-2 border-[1px] border-gray-200'> <p class=' text-center bg-[#ac1c9b] px-2 py-1 rounded-md text-white w-[130px]'>" . $row['rol'] . "</p>  </td>";
                                                         echo "<td class='px-2 py-2 border-[1px] border-gray-200'>" . "</td>";
                                                         echo "<td class='px-2 py-2 border-[1px] border-gray-200 flex justify-center'>
                                                         <span class='material-symbols-outlined text-blue-400'>edit_square</span></td>";
