@@ -1,15 +1,21 @@
-<?php
+<?php 
 session_start();
 if (!isset($_SESSION['email'])) {
     header('Location: /src/index.php');
     exit();
 } else {
 require_once __DIR__ . '/../../conexiondb.php';
-$consulta = $mysqli->query("SELECT maestros.*, cursos.nombre_curso 
-                            FROM maestros 
-                            LEFT JOIN cursos ON maestros.id_maestro = cursos.maestroID");
+
+$query = "SELECT email, 'administrador' AS rol, id_admin AS id FROM administrador
+          UNION
+          SELECT email, 'maestro' AS rol, id_maestro AS id FROM maestros
+          UNION
+          SELECT email, 'estudiante' AS rol, id_estudiante AS id FROM estudiantes";
+
+$result = $mysqli->query($query);
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -82,24 +88,25 @@ $consulta = $mysqli->query("SELECT maestros.*, cursos.nombre_curso
             </nav>
             <div class="p-5 h-[80%] flex flex-col gap-6 mt-[70px] ">
                 <div class="flex justify-between">
-                    <h1 class=" text-2xl font-medium text-gray-700">Lista de Maestros</h1>
+                    <h1 class=" text-2xl font-medium text-gray-700">Lista de Permisos</h1>
                     <div class="flex gap-1">
-                        <a href="../vAdmin.php">
+                        <a href="/src/administrador/vista_admin.php">
                             <p class="text-blue-500">Home</p>
-                        </a>/ <p>Maestro</p>
+                        </a>/ <p>Permisos</p>
                     </div>
                 </div>
-                <div class="bg-white shadow-sm shadow-gray-400 w-[100%] rounded-sm  flex flex-col justify-center gap-1">
-                    <div class="flex items-center justify-between p-3 pl-6">
-                        <h2>Informacion de Maestros</h2>
-                        <a href="create_maestro_vista.php"><button type="submit" class="w-[170px] bg-blue-500 text-white px-4 py-[6px] rounded-md right-5  hover:bg-blue-600 hover:shadow-custom hover:shadow-zinc-800">Agregar Maestro</button></a>
+                <div class="bg-white shadow-sm shadow-gray-400 w-[100%] rounded-sm flex flex-col justify-center">
+                    <div class="flex items-center justify-between p-3">
+                        <h2>Informacion de Permisos</h2>
                     </div>
-                    <hr>
+                        <hr>
                     <div class="w-[100%] flex justify-end gap-1 p-2 pt-4 px-3">
                         <p>Search:</p>
                         <input type="text" class="border-2 rounded-md">
                     </div>
                     <div class="flex flex-col gap-4 px-6 py-2">
+
+
                         <table class="w-full">
                             <thead class="text-black font-medium text-sm">
                                 <tr class="bg-white">
@@ -109,58 +116,45 @@ $consulta = $mysqli->query("SELECT maestros.*, cursos.nombre_curso
                                             <span class="material-symbols-outlined text-gray-400 text-base">swap_vert</span>
                                         </div>
                                     </th>
-                                    
                                     <th scope="col" class="px-2 py-2 border-2 border-gray-300">
                                         <div class="flex justify-between items-center">
-                                            Nombre
+                                            Email / Usuario
                                             <span class="material-symbols-outlined text-gray-400 text-base">swap_vert</span>
                                         </div>
                                     </th>
                                     <th scope="col" class="px-2 py-2 border-2 border-gray-300">
                                         <div class="flex justify-between items-center">
-                                            Correo<span class="material-symbols-outlined text-gray-400 text-base">swap_vert</span>
+                                            Permiso
+                                            <span class="material-symbols-outlined text-gray-400 text-base">swap_vert</span>
                                         </div>
                                     </th>
                                     <th scope="col" class="px-2 py-2 border-2 border-gray-300">
                                         <div class="flex justify-between items-center">
-                                            Direccion<span class="material-symbols-outlined text-gray-400 text-base">swap_vert</span>
+                                            Estado
+                                            <span class="material-symbols-outlined text-gray-400 text-base">swap_vert</span>
                                         </div>
                                     </th>
                                     <th scope="col" class="px-2 py-2 border-2 border-gray-300">
                                         <div class="flex justify-between items-center">
-                                            Fecha de Nacimiento<span class="material-symbols-outlined text-gray-400 text-base">swap_vert</span>
-                                        </div>
-                                    </th>
-                                    <th scope="col" class="px-2 py-2 border-2 border-gray-300">
-                                        <div class="flex justify-between items-center">
-                                            Clase Asignada<span class="material-symbols-outlined text-gray-400 text-base">swap_vert</span>
-                                        </div>
-                                    </th>
-                                    <th scope="col" class="px-2 py-2 border-2 border-gray-300">
-                                        <div class="flex justify-between items-center">
-                                            Acciones<span class="material-symbols-outlined text-gray-400 text-base">swap_vert</span>
+                                            Acciones
+                                            <span class="material-symbols-outlined text-gray-400 text-base">swap_vert</span>
                                         </div>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                </tr>
                                 <?php
-                                while ($row = $consulta->fetch_assoc()) {
-
-                                    echo "<tr>";
-                                    echo "<td class='px-2 py-2 border-[1px] border-gray-200'>" . $row['id_maestro'] . "</td>";
-                                    echo "<td class='px-2 py-2 border-[1px] border-gray-200'>" . $row['nombre'] . $row['apellido'] . "</td>";
-                                    echo "<td class='px-2 py-2 border-[1px] border-gray-200'>" . $row['email'] .   "</td>";
-                                    echo "<td class='px-2 py-2 border-[1px] border-gray-200'>" . $row['direccion'] . "</td>";
-                                    echo "<td class='px-2 py-2 border-[1px] border-gray-200'>" . $row['fecha_nacimiento'] . "</td>";
-                                    echo "<td class='px-2 py-2 border-[1px] border-gray-200'>" . $row['nombre_curso'] . "</td>";
-                                    echo "<td class='px-2 py-2 border-[1px] border-gray-200 flex justify-center'>
-                                                <a href='./edit_maestro.php?id_maestro=" . $row['id_maestro'] . "'><span class='material-symbols-outlined text-blue-400'>edit_square</span></a>
-                                                <a href='./delete.php?id_maestro=" . $row['id_maestro'] . "'><span class='material-symbols-outlined text-red-400'>delete</span></a>
-                                            </td>";
-                                    echo "</tr>";
-                                }
+                                                    while ($row = $result->fetch_assoc()) {
+                                                        echo "<tr>";
+                                                        echo "<td class='px-2 py-2 border-[1px] border-gray-200'>" . $row['id'] . "</td>";
+                                                        echo "<td class='px-2 py-2 border-[1px] border-gray-200'>" . $row['email'] . "</td>";
+                                                        echo "<td class='px-2 py-2 border-[1px] border-gray-200'> <p class=' text-center bg-[#1c9eac] px-2 py-1 rounded-md text-white w-[130px]'>" . $row['rol'] . "</p>  </td>";
+                                                        echo "<td class='px-2 py-2 border-[1px] border-gray-200'>" . "</td>";
+                                                        echo "<td class='px-2 py-2 border-[1px] border-gray-200 flex justify-center'>
+                                                        <span class='material-symbols-outlined text-blue-400'>edit_square</span></td>";
+                                                        echo "</tr>";
+                                                    }
+                    
                                 ?>
                             </tbody>
                         </table>
@@ -168,19 +162,18 @@ $consulta = $mysqli->query("SELECT maestros.*, cursos.nombre_curso
                     <div class="w-[100%] flex items-center justify-between gap-1 p-2 pt-4 px-6 pb-6">
                         <p>Showing 1 to 10 of 11 entries</p>
                         <div class="flex">
-                            <button class="hover:bg-slate-200 px-3 py-2 border-[1px] border-gray-500 rounded-l-lg">Previous</button>
-                            <button class="hover:bg-blue-500 hover:text-white text-blue-600 px-3 py-2 border-y-[1px] border-gray-500">1</button>
-                            <button class="hover:bg-blue-500 hover:text-white text-blue-600 px-3 py-2 border-y-[1px] border-l-[1px] border-gray-500">2</button>
-                            <button class="hover:bg-slate-200 text-blue-600 px-3 py-2 border-[1px] border-gray-500 rounded-r-lg">Next</button>
+                            <button class="hover:bg-slate-200 px-3 py-1 border-[1px] border-gray-500 rounded-l-lg">Previous</button>
+                            <button class="hover:bg-blue-500 hover:text-white text-blue-600 px-3 py-1 border-y-[1px] border-gray-500">1</button>
+                            <button class="hover:bg-blue-500 hover:text-white text-blue-600 px-3 py-1 border-y-[1px] border-l-[1px] border-gray-500">2</button>
+                            <button class="hover:bg-slate-200 text-blue-600 px-3 py-1 border-[1px] border-gray-500 rounded-r-lg">Next</button>
                         </div>
                     </div>
                 </div>
-               
+                
             </div>
         </section>
     </main>
 </body>
 
 </html>
-
 <?php } ?>

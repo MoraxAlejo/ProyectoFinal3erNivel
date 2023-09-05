@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['email'])) {
+    header('Location: ../index.php');
+    exit();
+} else {
 require_once "../conexiondb.php";
 $email = $_SESSION['email'];
 $consulta = $mysqli->query("SELECT * FROM maestros WHERE email = '$email'");
@@ -34,7 +38,7 @@ $stmt->close();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/styles/styles.css">
     <script src="/js/modal.js" defer></script>
     <script src="/js/menu.js" defer></script>
     <title>Maestro</title>
@@ -43,7 +47,7 @@ $stmt->close();
 <body>
     <main class="flex">
         <section id="menu1" class="h-[100vh] bg-[#34393f] w-[20%] fixed hidden">
-            <img src="/img/logo2.jpg" alt="logo" class="w-[100%] ">
+            <img src="/imgs/logo2.jpg" alt="logo" class="w-[100%] ">
             <hr class=" border-[#51575e]">
             <div class="p-[20px] flex flex-col gap-2">
                 <h2 class="text-[#9c9fa1] font-medium">Maestro</h2>
@@ -57,7 +61,7 @@ $stmt->close();
             <hr class="w-[230px] ml-[14px] border-[#4d5359]">
             <div class="p-[20px] pt-6 flex flex-col gap-4">
                 <h1 class="text-[#9c9fa1] w-[100%] flex justify-center font-semibold">MENU MAESTRO</h1>
-                <a href="./maestro_alumno_read.php" class="flex gap-3">
+                <a href="alumnos.php" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">school</span>
                     <h2 class="text-[#9c9fa1] font-medium">Alumnos</h2>
                 </a>
@@ -76,14 +80,14 @@ $stmt->close();
                     </div>
                     <span id="flecha" class="material-symbols-outlined cursor-pointer">chevron_right</span>
                     <div id="modal" class=" absolute top-[68px] right-[20px] bg-white shadow-sm shadow-gray-400 rounded-md hidden">
-                        <a href="./edit_profile.php">
+                        <a href="profilemaestro.php">
                             <div class="flex gap-3 pl-4 py-3 pr-[4rem]">
-                                <img src="/img/profile.svg" alt="profile edit">
+                                <img src="/imgs/logo3.jpg" alt="profile edit">
                                 <p>Perfil</p>
                             </div>
                         </a>
                         <hr>
-                        <form action="/src/accions/logout.php">
+                        <form action="/actions/cerrar_sesion.php">
                             <div class="flex gap-3 px-4 py-3 text-red-500">
                                 <span class="material-symbols-outlined cursor-none">door_open</span>
                                 <button type="submit">
@@ -98,7 +102,7 @@ $stmt->close();
                 <div class="flex justify-between">
                     <h1 class=" text-2xl font-medium text-gray-700">Alumnos de la Clase de <?php echo $resultado2['nombre_curso'] ?></h1>
                     <div class="flex gap-1">
-                        <a href="./vMaestro.php">
+                        <a href="vista_maestro.php">
                             <p class="text-blue-500">Home</p>
                         </a>/ <p>Perfil</p>
                     </div>
@@ -191,3 +195,5 @@ $stmt->close();
 </body>
 
 </html>
+
+<?php } ?>

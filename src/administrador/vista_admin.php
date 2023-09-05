@@ -1,5 +1,9 @@
 <?php 
 session_start();
+if (!isset($_SESSION['email'])) {
+    header('Location: ../index.php');
+    exit();
+} else {
 require_once "../conexiondb.php";
 $email = $_SESSION['email'];
 $consulta = $mysqli->query("SELECT *FROM administrador WHERE email = '$email'");
@@ -13,7 +17,7 @@ $resultado = $consulta->fetch_assoc();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link href="/dist/output.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/styles/styles.css">
     <script src="/js/modal.js" defer></script>
     <script src="/js/menu.js" defer></script>
     <title>Admin</title>
@@ -33,7 +37,7 @@ $resultado = $consulta->fetch_assoc();
             <hr class="w-[230px] ml-[14px] border-[#4d5359]">
             <div class="p-[20px] pt-6 flex flex-col gap-4">
                 <h1 class="text-[#9c9fa1] w-[100%] flex justify-center font-semibold">MENU ADMINISTRACION</h1>
-                <a href="#" class="flex gap-3">
+                <a href="/src/administrador/permisos/crud_permisos.php" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">manage_accounts</span>
                     <h2 class="text-[#9c9fa1] font-medium">Permisos</h2>
                 </a>
@@ -88,3 +92,5 @@ $resultado = $consulta->fetch_assoc();
 </body>
 
 </html>
+
+<?php } ?>

@@ -1,5 +1,9 @@
 <?php 
 session_start();
+if (!isset($_SESSION['email'])) {
+    header('Location: /src/index.php');
+    exit();
+} else {
 require_once __DIR__ . '/../../conexiondb.php';
 $consulta = $mysqli->query("SELECT cursos.*, maestros.nombre , maestros.id_maestro
 FROM cursos
@@ -17,7 +21,7 @@ $resultado = $consulta->fetch_assoc();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/styles/styles.css">
     <script src="/js/modal.js" defer></script>
     <script src="/js/menu.js" defer></script>
     <title>Admin</title>
@@ -26,7 +30,7 @@ $resultado = $consulta->fetch_assoc();
 <body>
     <main class="flex">
         <section id="menu1" class="h-[100vh] bg-[#34393f] w-[20%] fixed hidden">
-            <img src="/img/logo2.jpg" alt="logo" class="w-[100%] ">
+            <img src="/imgs/logo2.jpg" alt="logo" class="w-[100%] ">
             <hr class=" border-[#51575e]">
             <div class="p-[20px] flex flex-col gap-2">
                 <h2 class="text-[#9c9fa1] font-medium">Admin</h2>
@@ -37,11 +41,11 @@ $resultado = $consulta->fetch_assoc();
             <hr class="w-[230px] ml-[14px] border-[#4d5359]">
             <div class="p-[20px] pt-6 flex flex-col gap-4">
                 <h1 class="text-[#9c9fa1] w-[100%] flex justify-center font-semibold">MENU ADMINISTRACION</h1>
-                <a href="../crud_permisos/permisos.php" class="flex gap-3">
+                <a href="/src/administrador/permisos/crud_permisos.php" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">manage_accounts</span>
                     <h2 class="text-[#9c9fa1] font-medium">Permisos</h2>
                 </a>
-                <a href="../crud_maestro/crud_maestros.php" class="flex gap-3">
+                <a href="/src/administrador/admin_maestro/crud_maestros.php" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">person_pin</span>
                     <h2 class="text-[#9c9fa1] font-medium">Maestros</h2>
                 </a>
@@ -49,7 +53,7 @@ $resultado = $consulta->fetch_assoc();
                     <span class="material-symbols-outlined text-[#9c9fa1]">school</span>
                     <h2 class="text-[#9c9fa1] font-medium">Alumnos</h2>
                 </a>
-                <a href="#" class="flex gap-3">
+                <a href="/src/administrador/clases/clases_vista.php" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">tv_gen</span>
                     <h2 class="text-[#9c9fa1] font-medium">Clases</h2>
                 </a>
@@ -65,7 +69,7 @@ $resultado = $consulta->fetch_assoc();
                     <p>Administrador</p>
                     <span id="flecha" class="material-symbols-outlined cursor-pointer">chevron_right</span>
                     <div id="modal" class=" absolute top-[68px] right-[20px] bg-white shadow-sm shadow-gray-400 rounded-md hidden">
-                        <form action="/src/accions/logout.php">
+                        <form action="/actions/cerrar_sesion.php">
                             <div class="flex gap-3 px-4 pr-[2rem] py-3 text-red-500">
                                 <span class="material-symbols-outlined cursor-none">door_open</span>
                                 <button type="submit">
@@ -79,7 +83,7 @@ $resultado = $consulta->fetch_assoc();
                 <div class="flex justify-between">
                     <h1 class=" text-2xl font-medium text-gray-700">Agregar Clase</h1>
                     <div class="flex gap-1">
-                        <a href="../vAdmin.php">
+                        <a href="/src/administrador/vista_admin.php">
                             <p class="text-blue-500">Home</p>
                         </a>/ <p>Clases</p>
                     </div>
@@ -132,3 +136,5 @@ $resultado = $consulta->fetch_assoc();
 </body>
 
 </html>
+
+<?php } ?>

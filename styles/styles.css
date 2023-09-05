@@ -1,22 +1,27 @@
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+
 .nav{
     width: 80% !important;
+    left: 20%;
 }
 
 .background{
     background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+.ml{
+    margin-left: 20%;
 }
 
-#menu1{
-    animation: fadeIn 1s;
-    transition: opacity 1s;
+tr:nth-child(even) {
+    background-color: #ffffff ;
+}
+tr:nth-child(odd) {
+    background-color: #f2f2f2;
 }
 
-#modal{
-    animation: fadeIn 1s;
-    transition: opacity 7ms;
+.bg-white{
+    background: white !important;
 }

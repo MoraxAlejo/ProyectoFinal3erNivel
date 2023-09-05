@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['email'])) {
+    header('Location: ../index.php');
+    exit();
+} else {
 require_once "../conexiondb.php";
 $email = $_SESSION['email'];
 $consulta = $mysqli->query("SELECT *FROM maestros WHERE email = '$email'");
@@ -149,3 +153,5 @@ $resultado = $consulta->fetch_assoc();
 </body>
 
 </html>
+
+<?php } ?>

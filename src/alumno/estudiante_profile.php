@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['email'])) {
+    header('Location: ../index.php');
+    exit();
+} else {
 require_once "../conexiondb.php";
 $email = $_SESSION['email'];
 $consulta = $mysqli->query("SELECT *FROM estudiantes WHERE email = '$email'");
@@ -35,11 +39,11 @@ $resultado = $consulta->fetch_assoc();
             <hr class="w-[230px] ml-[14px] border-[#4d5359]">
             <div class="p-[20px] pt-6 flex flex-col gap-4">
                 <h1 class="text-[#9c9fa1] w-[100%] flex justify-center font-semibold">MENU ALUMNOS</h1>
-                <a href="./calificaciones.php" class="flex gap-3">
+                <a href="#" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">task</span>
                     <h2 class="text-[#9c9fa1] font-medium">Ver Calificaciones</h2>
                 </a>
-                <a href="" class="flex gap-3">
+                <a href="cursos.php" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">tv_gen</span>
                     <h2 class="text-[#9c9fa1] font-medium">Administra tus Clases</h2>
                 </a>
@@ -65,7 +69,7 @@ $resultado = $consulta->fetch_assoc();
                             </div>
                         </a>
                         <hr>
-                        <form action="/src/accions/logout.php">
+                        <form action="/actions/cerrar_sesion.php">
                             <div class="flex gap-3 px-4 py-3 text-red-500">
                                 <span class="material-symbols-outlined cursor-none">door_open</span>
                                 <button type="submit">
@@ -158,3 +162,5 @@ $resultado = $consulta->fetch_assoc();
 </body>
 
 </html>
+
+<?php } ?>

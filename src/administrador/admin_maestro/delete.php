@@ -16,7 +16,7 @@ require_once __DIR__ . '/../../conexiondb.php';
             exit();
         } else {
             // Manejar un posible error
-            echo "Error al eliminar el estudiante: " . $stmt->error;
+            echo "Error al eliminar al eliminar maestro: " . $stmt->error;
         }
 
         $stmt->close();
