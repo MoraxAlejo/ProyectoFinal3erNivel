@@ -4,7 +4,6 @@ require_once __DIR__ . '/../../conexiondb.php';
 
 $matricula = $_POST["matricula"];
 $email = $_POST["email"];
-$password = $_POST["contrasena"];
 $nombre = $_POST["nombre"];
 $apellidos = $_POST["apellidos"];
 $direccion = $_POST['direccion'];
@@ -21,7 +20,7 @@ $resultado_estudiantes = $consulta_estudiantes->get_result()->fetch_assoc();
 $contrahash = password_hash($password, PASSWORD_DEFAULT);
 
 if (
-    !empty($matricula) || !empty($email) || !empty($password) ||
+    !empty($matricula)  ||
     !empty($nombre) || !empty($apellidos) || !empty($direccion) || !empty($fecha_nacimiento)
 ) {
     $query_estudiantes = "UPDATE `estudiantes` SET ";
@@ -32,18 +31,8 @@ if (
         $params_estudiantes[] = $matricula;
         $_SESSION['matricula'] = $matricula;
     }
-    if (!empty($email)) {
-        $query_estudiantes .= "`email` = ?, ";
-        $params_estudiantes[] = $email;
-        $_SESSION['email'] = $email;
-
-    }
-    if (!empty($password)) {
-        $query_estudiantes .= "`contrasena` = ?, ";
-        $params_estudiantes[] = $contrahash;
-        $_SESSION['password'] = $password;
-
-    }
+   
+    
 
     if (!empty($nombre)) {
         $query_estudiantes .= "`nombre` = ?, ";

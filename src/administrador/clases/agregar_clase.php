@@ -1,17 +1,10 @@
-<?php
+<?php 
 session_start();
 require_once __DIR__ . '/../../conexiondb.php';
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
-    $id = $_GET['id'];
-
-    $consulta = $mysqli->query("SELECT cursos.*, maestros.nombre , maestros.id_maestro
-    FROM cursos
-    INNER JOIN maestros ON cursos.maestroID = maestros.id_maestro");
-    $resultado = $consulta->fetch_assoc();
-    $consulta2 = $mysqli->query("SELECT * FROM cursos WHERE id = '$id'");
-    $resultado2 = $consulta2->fetch_assoc();
-}
-
+$consulta = $mysqli->query("SELECT cursos.*, maestros.nombre , maestros.id_maestro
+FROM cursos
+INNER JOIN maestros ON cursos.maestroID = maestros.id_maestro");
+$resultado = $consulta->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
                     <span class="material-symbols-outlined text-[#9c9fa1]">person_pin</span>
                     <h2 class="text-[#9c9fa1] font-medium">Maestros</h2>
                 </a>
-                <a href="../crud_alumno/crud_alumnos.php" class="flex gap-3">
+                <a href="/src/administrador/admin_estudiantes/crud_alumnos.php" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">school</span>
                     <h2 class="text-[#9c9fa1] font-medium">Alumnos</h2>
                 </a>
@@ -84,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
             </nav>
             <div class="p-5 h-[80%] flex flex-col gap-6 mt-[70px] ">
                 <div class="flex justify-between">
-                    <h1 class=" text-2xl font-medium text-gray-700">Editar Clase</h1>
+                    <h1 class=" text-2xl font-medium text-gray-700">Agregar Clase</h1>
                     <div class="flex gap-1">
                         <a href="../vAdmin.php">
                             <p class="text-blue-500">Home</p>
@@ -93,25 +86,25 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
                 </div>
                 <div class="bg-white shadow-sm shadow-gray-400 w-[40%] rounded-sm flex flex-col justify-center relative left-[35%]">
                     <div class="flex items-center justify-center w-[100%] text-black font-medium text-xl py-3">
-                        <h2>Editar Clase</h2>
+                        <h2>Agregar Clase</h2>
                     </div>
                     <hr>
                     <div class="flex flex-col gap-4 py-3 px-6">
-                        <form class="flex flex-col gap-4 py-3 px-6" method="post" action="cambiar_clase.php">
+                        <form class="flex flex-col gap-4 py-3 px-6" method="post" action="agregar_action.php">
                             <div>
                                 <strong>
                                     <p>Nombre de la Materia</p>
                                 </strong>
                                 <div class="flex items-center border-gray-300 border-2 pr-3 rounded-md  hover:bg-slate-200  hover:shadow-custom hover:shadow-zinc-800">
-                                    <input class="px-3 py-[6px] w-[100%] rounded-l-md hover:bg-slate-200 focus:outline-0" type="text" name="clase" value="<?php echo $resultado2['id']; ?> - <?php echo $resultado2['nombre_curso'] ?>">
+                                    <input class="px-3 py-[6px] w-[100%] rounded-l-md hover:bg-slate-200 focus:outline-0" type="text" name="curso_name" value="">
                                 </div>
                             </div>
                             <div>
                                 <strong>
-                                    <p>Maestro Asignado</p>
+                                    <p>Maestros disponibles para la clase</p>
                                 </strong>
                                 <div class="flex items-center border-gray-300 border-2 pr-3 rounded-md  hover:bg-slate-200  hover:shadow-custom hover:shadow-zinc-800">
-                                    <select class="px-3 py-[6px] w-[100%] rounded-l-md hover:bg-slate-200 focus:outline-0" type="text" name="nombre" value=""> 
+                                    <select class="px-3 py-[6px] w-[100%] rounded-l-md hover:bg-slate-200 focus:outline-0" type="text" name="id_maestro" value="">
                                     <?php
                                     $consulta1 = $mysqli->query("SELECT * from maestros");
                                     $resultado1 = $consulta1->fetch_assoc();
@@ -120,18 +113,19 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
         echo "<option ' value='" . $row['id_maestro'] . "' $selected>" . $row['id_maestro'] . " - " . $row['nombre'] . "</option>";
 
     }
-    ?></select>
+    ?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="flex gap-2 justify-between">
                                 <a href="./crud_clases.php" class="bg-gray-400 text-white px-4 py-[6px] rounded-md right-5  hover:bg-gray-500 hover:shadow-custom hover:shadow-zinc-800">close</a>
-                                <button type="submit" class="bg-blue-500 text-white px-4 py-[6px] rounded-md right-5  hover:bg-blue-600 hover:shadow-custom hover:shadow-zinc-800">Guardar Cambios</button>
+                                <button type="submit" class="bg-blue-500 text-white px-4 py-[6px] rounded-md right-5  hover:bg-blue-600 hover:shadow-custom hover:shadow-zinc-800">Crear</button>
                             </div>
                         </form>
                     </div>
 
                 </div>
-               
+              
             </div>
         </section>
     </main>

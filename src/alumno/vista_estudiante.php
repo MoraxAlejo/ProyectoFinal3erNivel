@@ -36,7 +36,7 @@ $resultado = $consulta->fetch_assoc();
             <hr class="w-[230px] ml-[14px] border-[#4d5359]">
             <div class="p-[20px] pt-6 flex flex-col gap-4">
                 <h1 class="text-[#9c9fa1] w-[100%] flex justify-center font-semibold">MENU ALUMNOS</h1>
-                <a href="./calificaciones.php" class="flex gap-3">
+                <a href="#" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">task</span>
                     <h2 class="text-[#9c9fa1] font-medium">Ver Calificaciones</h2>
                 </a>
@@ -54,12 +54,14 @@ $resultado = $consulta->fetch_assoc();
                 </div>
                 <div class="flex gap-2">
                     <p>Estudiante</p>
-                    <span class="material-symbols-outlined cursor-pointer">expand_more</span>
-                    <div class=" absolute top-[68px] right-[20px] bg-white shadow-sm shadow-gray-400 rounded-md ">
-                       <a href="estudiante_profile.php"> <div class="flex gap-3 pl-4 py-3 pr-[4rem]">
-                            <img src="/imgs/logo3.jpg" alt="profile edit">
-                            <p>Perfil</p>
-                        </div></a>
+                    <span id="flecha" class="material-symbols-outlined cursor-pointer">chevron_right</span>
+                    <div id="modal" class=" absolute top-[68px] right-[20px] bg-white shadow-sm shadow-gray-400 rounded-md hidden">
+                        <a href="estudiante_profile.php">
+                            <div class="flex gap-3 pl-4 py-3 pr-[4rem]">
+                                <img src="/imgs/logo3.jpg" alt="profile edit">
+                                <p>Perfil</p>
+                            </div>
+                        </a>
                         <hr>
                        <a href="/actions/cerrar_sesion.php"> <div class="flex gap-3 px-4 py-3 text-red-500">
                             <span class="material-symbols-outlined">door_open</span>

@@ -61,7 +61,7 @@ $resultado = $consulta->fetch_assoc();
                     <p>Administrador</p>
                     <span id="flecha" class="material-symbols-outlined cursor-pointer">chevron_right</span>
                     <div id="modal" class=" absolute top-[68px] right-[20px] bg-white shadow-sm shadow-gray-400 rounded-md hidden">
-                        <form action="/src/accions/logout.php">
+                        <form action="/actions/cerrar_sesion.php">
                             <div class="flex gap-3 px-4 pr-[2rem] py-3 text-red-500">
                                 <span class="material-symbols-outlined cursor-none">door_open</span>
                                 <button type="submit">

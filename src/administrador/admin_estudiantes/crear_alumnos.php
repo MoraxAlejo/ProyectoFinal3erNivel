@@ -1,18 +1,8 @@
 <?php
 session_start();
 require_once __DIR__ . '/../../conexiondb.php';
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
-    $id = $_GET['id'];
-
-    $consulta = $mysqli->query("SELECT cursos.*, maestros.nombre , maestros.id_maestro
-    FROM cursos
-    INNER JOIN maestros ON cursos.maestroID = maestros.id_maestro");
-    $resultado = $consulta->fetch_assoc();
-    $consulta2 = $mysqli->query("SELECT * FROM cursos WHERE id = '$id'");
-    $resultado2 = $consulta2->fetch_assoc();
-}
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,11 +42,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
                     <span class="material-symbols-outlined text-[#9c9fa1]">person_pin</span>
                     <h2 class="text-[#9c9fa1] font-medium">Maestros</h2>
                 </a>
-                <a href="../crud_alumno/crud_alumnos.php" class="flex gap-3">
+                <a href="#" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">school</span>
                     <h2 class="text-[#9c9fa1] font-medium">Alumnos</h2>
                 </a>
-                <a href="#" class="flex gap-3">
+                <a href="/src/administrador/clases/clases_vista.php" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">tv_gen</span>
                     <h2 class="text-[#9c9fa1] font-medium">Clases</h2>
                 </a>
@@ -84,52 +74,82 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
             </nav>
             <div class="p-5 h-[80%] flex flex-col gap-6 mt-[70px] ">
                 <div class="flex justify-between">
-                    <h1 class=" text-2xl font-medium text-gray-700">Editar Clase</h1>
+                    <h1 class=" text-2xl font-medium text-gray-700">Crear Alumno</h1>
                     <div class="flex gap-1">
                         <a href="../vAdmin.php">
                             <p class="text-blue-500">Home</p>
-                        </a>/ <p>Clases</p>
+                        </a>/ <p>Alumno create</p>
                     </div>
                 </div>
-                <div class="bg-white shadow-sm shadow-gray-400 w-[40%] rounded-sm flex flex-col justify-center relative left-[35%]">
-                    <div class="flex items-center justify-center w-[100%] text-black font-medium text-xl py-3">
-                        <h2>Editar Clase</h2>
+                <div class="bg-white shadow-sm shadow-gray-400 w-[100%] rounded-sm  flex flex-col justify-center gap-1">
+                    <div class="flex items-center p-3 pl-6">
+                        <h2>Crea un Alumno</h2>
                     </div>
                     <hr>
-                    <div class="flex flex-col gap-4 py-3 px-6">
-                        <form class="flex flex-col gap-4 py-3 px-6" method="post" action="cambiar_clase.php">
+                    <div class="flex flex-col gap-4 p-3 pl-6">
+                        <form class="flex flex-col gap-4 p-3 pl-6" action="agregar.php" method="post">
                             <div>
                                 <strong>
-                                    <p>Nombre de la Materia</p>
+                                    <p>Matricula</p>
                                 </strong>
-                                <div class="flex items-center border-gray-300 border-2 pr-3 rounded-md  hover:bg-slate-200  hover:shadow-custom hover:shadow-zinc-800">
-                                    <input class="px-3 py-[6px] w-[100%] rounded-l-md hover:bg-slate-200 focus:outline-0" type="text" name="clase" value="<?php echo $resultado2['id']; ?> - <?php echo $resultado2['nombre_curso'] ?>">
+                                <div class="flex items-center border-gray-300 border-2 pr-3 rounded-md hover:bg-slate-200  hover:shadow-custom hover:shadow-zinc-800">
+                                    <input class="px-3 py-[6px] w-[100%] rounded-l-md hover:bg-slate-200 focus:outline-0" type="text" name="matricula">
                                 </div>
                             </div>
                             <div>
                                 <strong>
-                                    <p>Maestro Asignado</p>
+                                    <p>Correo Electronico</p>
                                 </strong>
                                 <div class="flex items-center border-gray-300 border-2 pr-3 rounded-md  hover:bg-slate-200  hover:shadow-custom hover:shadow-zinc-800">
-                                    <select class="px-3 py-[6px] w-[100%] rounded-l-md hover:bg-slate-200 focus:outline-0" type="text" name="nombre" value=""> 
-                                    <?php
-                                    $consulta1 = $mysqli->query("SELECT * from maestros");
-                                    $resultado1 = $consulta1->fetch_assoc();
-    while ($row = $consulta1->fetch_assoc()) {
-        $selected = ($row['id_maestro'] == $resultado1['id_maestro']) ? 'selected' : '';
-        echo "<option ' value='" . $row['id_maestro'] . "' $selected>" . $row['id_maestro'] . " - " . $row['nombre'] . "</option>";
-
-    }
-    ?></select>
+                                    <input class="px-3 py-[6px] w-[100%] rounded-l-md hover:bg-slate-200 focus:outline-0" type="email" name="email">
                                 </div>
                             </div>
-                            <div class="flex gap-2 justify-between">
-                                <a href="./crud_clases.php" class="bg-gray-400 text-white px-4 py-[6px] rounded-md right-5  hover:bg-gray-500 hover:shadow-custom hover:shadow-zinc-800">close</a>
-                                <button type="submit" class="bg-blue-500 text-white px-4 py-[6px] rounded-md right-5  hover:bg-blue-600 hover:shadow-custom hover:shadow-zinc-800">Guardar Cambios</button>
+                            <div>
+                                <strong>
+                                    <p>Contraseña Ingresa para cambiar la contraseña</p>
+                                </strong>
+                                <div class="flex items-center border-gray-300 border-2 pr-3 rounded-md  hover:bg-slate-200  hover:shadow-custom hover:shadow-zinc-800">
+                                    <input class="px-3 py-[6px] w-[100%] rounded-l-md hover:bg-slate-200 focus:outline-0" type="password" name="contrasena" placeholder="Para modificar ingresa una nueva contraseña">
+                                </div>
+                            </div>
+                            <div>
+                                <strong>
+                                    <p>Nombre(s)</p>
+                                </strong>
+                                <div class="flex items-center border-gray-300 border-2 pr-3 rounded-md  hover:bg-slate-200  hover:shadow-custom hover:shadow-zinc-800">
+                                    <input class="px-3 py-[6px] w-[100%] rounded-l-md hover:bg-slate-200 focus:outline-0" type="text" name="nombre">
+                                </div>
+                            </div>
+                            <div>
+                                <strong>
+                                    <p>Apellidos</p>
+                                </strong>
+                                <div class="flex items-center border-gray-300 border-2 pr-3 rounded-md  hover:bg-slate-200  hover:shadow-custom hover:shadow-zinc-800">
+                                    <input class="px-3 py-[6px] w-[100%] rounded-l-md hover:bg-slate-200 focus:outline-0" type="text" name="apellidos">
+                                </div>
+                            </div>
+                            <div>
+                                <strong>
+                                    <p>Direccion</p>
+                                </strong>
+                                <div class="flex items-center border-gray-300 border-2 pr-3 rounded-md  hover:bg-slate-200  hover:shadow-custom hover:shadow-zinc-800">
+                                    <input class="px-3 py-[6px] w-[100%] rounded-l-md hover:bg-slate-200 focus:outline-0" type="text" name="direccion">
+                                </div>
+                            </div>
+                            <div>
+                                <strong>
+                                    <p>Fecha de nacimiento</p>
+                                </strong>
+                                <div class="flex items-center border-gray-300 border-2 pr-3 rounded-md  hover:bg-slate-200  hover:shadow-custom hover:shadow-zinc-800">
+                                    <input class="px-3 py-[6px]  rounded-l-md hover:bg-slate-200 focus:outline-0" type="date" name="fecha_nacimiento">
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <a href="./crud_alumnos.php" class="bg-gray-400 text-white px-4 py-[6px] rounded-md right-5  hover:bg-gray-500 hover:shadow-custom hover:shadow-zinc-800">close</a>
+                                <button type="submit" class="bg-blue-500 text-white px-4 py-[6px] rounded-md right-5  hover:bg-blue-600 hover:shadow-custom hover:shadow-zinc-800">crear</button>
                             </div>
                         </form>
                     </div>
-
                 </div>
                
             </div>

@@ -58,7 +58,7 @@ $resultado = $consulta->fetch_assoc();
                     </div>
                     <span id="flecha" class="material-symbols-outlined cursor-pointer">chevron_right</span>
                     <div id="modal" class=" absolute top-[68px] right-[20px] bg-white shadow-sm shadow-gray-400 rounded-md hidden">
-                        <a href="./vAlumno.php">
+                        <a href="vista_estudiante.php">
                             <div class="flex gap-3 pl-4 py-3 pr-[4rem]">
                                 <span class="material-symbols-outlined">home</span>
                                 <p>Home</p>

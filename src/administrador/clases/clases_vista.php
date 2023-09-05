@@ -42,7 +42,7 @@ $consultaclases = $mysqli->query("SELECT * FROM cursos");
                     <span class="material-symbols-outlined text-[#9c9fa1]">person_pin</span>
                     <h2 class="text-[#9c9fa1] font-medium">Maestros</h2>
                 </a>
-                <a href="../crud_alumno/crud_alumnos.php" class="flex gap-3">
+                <a href="/src/administrador/admin_estudiantes/crud_alumnos.php" class="flex gap-3">
                     <span class="material-symbols-outlined text-[#9c9fa1]">school</span>
                     <h2 class="text-[#9c9fa1] font-medium">Alumnos</h2>
                 </a>
@@ -84,7 +84,7 @@ $consultaclases = $mysqli->query("SELECT * FROM cursos");
                 <div class="bg-white shadow-sm shadow-gray-400 w-[100%] rounded-sm flex flex-col justify-center">
                     <div class="flex items-center justify-between p-3">
                         <h2>Informacion de Clases</h2>
-                        <a href="./create_clases.php"><button type="submit" class="bg-blue-500 text-white px-4 py-[6px] rounded-md right-5  hover:bg-blue-600 hover:shadow-custom hover:shadow-zinc-800">Agregar Clase</button></a>
+                        <a href="agregar_clase.php"><button type="submit" class="bg-blue-500 text-white px-4 py-[6px] rounded-md right-5  hover:bg-blue-600 hover:shadow-custom hover:shadow-zinc-800">Agregar Clase</button></a>
                     </div>
                     <hr>
                     <div class="w-[100%] flex justify-end gap-1 p-2 pt-4 px-3">
